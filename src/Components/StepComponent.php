@@ -16,6 +16,7 @@ abstract class StepComponent extends Component
 
     /** @var class-string<State> */
     public string $stateClassName = State::class;
+    public string $stepName;
 
     public function previousStep()
     {
@@ -42,7 +43,7 @@ abstract class StepComponent extends Component
         /** @var State $stateClass */
         $stateClass = new $this->stateClassName();
 
-        $stepName = Livewire::getAlias(static::class);
+        $stepName = $this->stepName;
 
         $allState = array_merge(
             $this->allStepsState ?? [],

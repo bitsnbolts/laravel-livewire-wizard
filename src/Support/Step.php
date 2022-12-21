@@ -9,6 +9,7 @@ class Step
 {
     public function __construct(
         public string $stepName,
+        public string $stepClass,
         public array $info,
         public StepStatus $status,
     ) {

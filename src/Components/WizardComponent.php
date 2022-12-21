@@ -19,6 +19,7 @@ abstract class WizardComponent extends Component
 
     public array $allStepState = [];
     public ?string $currentStepName = null;
+    public ?string $currentStepClass = null;
 
     protected $listeners = [
         'previousStep',
@@ -42,7 +43,10 @@ abstract class WizardComponent extends Component
                     throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $stepClassName);
                 }
             })
-            ->map(function (string $stepClassName) {
+            ->map(function (string $stepClassName, string|int $key) {
+                if (is_string($key)) {
+                    return $key;
+                }
                 $alias = Livewire::getAlias($stepClassName);
 
                 if (is_null($alias)) {
@@ -50,6 +54,31 @@ abstract class WizardComponent extends Component
                 }
 
                 return $alias;
+            });
+
+        if ($steps->isEmpty()) {
+            throw NoStepsReturned::make(static::class);
+        }
+
+        return $steps;
+    }
+
+    public function stepClasses(): Collection
+    {
+        $steps = collect($this->steps())
+            ->each(function (string $stepClassName) {
+                if (! is_a($stepClassName, StepComponent::class, true)) {
+                    throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $stepClassName);
+                }
+            })
+            ->map(function (string $stepClassName) {
+                $alias = Livewire::getAlias($stepClassName);
+
+                if (is_null($alias)) {
+                    throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
+                }
+
+                return $stepClassName;
             });
 
         if ($steps->isEmpty()) {
@@ -90,6 +119,7 @@ abstract class WizardComponent extends Component
         }
 
         $this->currentStepName = $toStepName;
+        $this->currentStepClass = $this->steps()[$toStepName];
     }
 
     public function setStepState(string $step, array $state = []): void
@@ -118,6 +148,7 @@ abstract class WizardComponent extends Component
             $this->allStepState[$stepName] ?? [],
             [
                 'allStepNames' => $this->stepNames()->toArray(),
+                'allStepClasses' => $this->stepClasses()->toArray(),
                 'allStepsState' => $this->allStepState,
                 'stateClassName' => $this->stateClass(),
             ],

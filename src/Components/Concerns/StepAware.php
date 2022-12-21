@@ -12,11 +12,11 @@ trait StepAware
     {
         $currentFound = false;
 
-        $currentStepName = Livewire::getAlias(static::class);
+        $currentStepName = $this->stepName;
 
         $this->steps = collect($this->allStepNames)
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
-                $className = Livewire::getClass($stepName);
+                $className = static::class;
 
                 $info = (new $className())->stepInfo();
 
@@ -28,7 +28,7 @@ trait StepAware
                     $status = StepStatus::Current;
                 }
 
-                return new Step($stepName, $info, $status);
+                return new Step($stepName, $className, $info, $status);
             })
             ->toArray();
     }
