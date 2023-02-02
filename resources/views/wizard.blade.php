@@ -1,3 +1,3 @@
 <div>
-    @livewire($currentStepName, $currentStepState, key($currentStepName))
+    @livewire($currentStepClass, ['stepName' => $currentStepName, ...$currentStepState], key($currentStepName))
 </div>

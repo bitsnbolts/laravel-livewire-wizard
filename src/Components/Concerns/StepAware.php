@@ -16,7 +16,7 @@ trait StepAware
 
         $this->steps = collect($this->allStepNames)
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
-                $className = static::class;
+                $className = $this->allStepClasses[$stepName];
 
                 $info = (new $className())->stepInfo();
 

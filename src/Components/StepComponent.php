@@ -13,10 +13,11 @@ abstract class StepComponent extends Component
 
     public array $allStepNames = [];
     public array $allStepsState = [];
+    public array $allStepClasses = [];
 
     /** @var class-string<State> */
     public string $stateClassName = State::class;
-    public string $stepName;
+    public string $stepName = '';
 
     public function previousStep()
     {
