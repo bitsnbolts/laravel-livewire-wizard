@@ -57,7 +57,7 @@ abstract class StepComponent extends Component
     public function state(): State
     {
         /** @var State $stateClass */
-        $stateClass = new $this->stateClassName;
+        $stateClass = new $this->stateClassName();
 
         $stepName = $this->stepName;
 
