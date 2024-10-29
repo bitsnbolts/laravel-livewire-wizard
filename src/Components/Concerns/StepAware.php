@@ -2,12 +2,13 @@
 
 namespace Spatie\LivewireWizard\Components\Concerns;
 
-use Livewire\Livewire;
 use Spatie\LivewireWizard\Enums\StepStatus;
 use Spatie\LivewireWizard\Support\Step;
 
 trait StepAware
 {
+    public array $steps = [];
+
     public function bootedStepAware()
     {
         $currentFound = false;
@@ -18,10 +19,9 @@ trait StepAware
             ->map(function (string $stepName) use (&$currentFound, $currentStepName) {
                 $className = $this->allStepClasses[$stepName];
 
-                $info = (new $className())->stepInfo();
+                $info = (new $className)->stepInfo();
 
                 $status = $currentFound ? StepStatus::Next : StepStatus::Previous;
-
 
                 if ($stepName === $currentStepName) {
                     $currentFound = true;

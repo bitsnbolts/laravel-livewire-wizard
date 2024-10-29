@@ -3,7 +3,7 @@
 namespace Spatie\LivewireWizard\Components;
 
 use Livewire\Component;
-use Livewire\Livewire;
+use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\StepAware;
 use Spatie\LivewireWizard\Support\State;
 
@@ -11,27 +11,42 @@ abstract class StepComponent extends Component
 {
     use StepAware;
 
+    public ?string $wizardClassName = null;
+
     public array $allStepNames = [];
+
     public array $allStepsState = [];
+
     public array $allStepClasses = [];
 
     /** @var class-string<State> */
     public string $stateClassName = State::class;
+
     public string $stepName = '';
 
     public function previousStep()
     {
-        $this->emitUp('previousStep', $this->state()->currentStep());
+        $this->dispatch('previousStep', $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function nextStep()
     {
-        $this->emitUp('nextStep', $this->state()->currentStep());
+        $this->dispatch('nextStep', $this->state()->currentStep())->to($this->wizardClassName);
     }
 
     public function showStep(string $stepName)
     {
-        $this->emitUp('showStep', $stepName, $this->state()->currentStep());
+        $this->dispatch('showStep', toStepName: $stepName, currentStepState: $this->state()->currentStep())->to($this->wizardClassName);
+    }
+
+    public function hasPreviousStep()
+    {
+        return ! empty($this->allStepNames) && $this->allStepNames[0] !== app(ComponentRegistry::class)->getName(static::class);
+    }
+
+    public function hasNextStep()
+    {
+        return end($this->allStepNames) !== app(ComponentRegistry::class)->getName(static::class);
     }
 
     public function stepInfo(): array
@@ -42,7 +57,7 @@ abstract class StepComponent extends Component
     public function state(): State
     {
         /** @var State $stateClass */
-        $stateClass = new $this->stateClassName();
+        $stateClass = new $this->stateClassName;
 
         $stepName = $this->stepName;
 

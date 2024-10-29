@@ -2,6 +2,95 @@
 
 All notable changes to `laravel-livewire-wizard` will be documented in this file.
 
+## 2.3.0 - 2024-04-22
+
+### What's Changed
+
+* merge initialStep with allStepState by @bangnokia in https://github.com/spatie/laravel-livewire-wizard/pull/112
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.0.0 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/111
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.2.0...2.3.0
+
+## 2.2.0 - 2024-03-08
+
+### What's Changed
+
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-livewire-wizard/pull/109
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/109
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.1.0...2.2.0
+
+## 2.1.0 - 2024-02-21
+
+### What's Changed
+
+* add forStepClass method to get state more convenient by @bangnokia in https://github.com/spatie/laravel-livewire-wizard/pull/108
+
+### New Contributors
+
+* @bangnokia made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/108
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.0.1...2.1.0
+
+## 2.0.1 - 2023-09-13
+
+### What's Changed
+
+- Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/92
+- Fixes step navigation when there are multiple wizards on a page by @OrangeJuiced in https://github.com/spatie/laravel-livewire-wizard/pull/94
+
+### New Contributors
+
+- @OrangeJuiced made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/94
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/2.0.0...2.0.1
+
+## 2.0.0 - 2023-08-25
+
+### What's Changed
+
+- Fixed bug where tests would fail by @Bird87ZA in https://github.com/spatie/laravel-livewire-wizard/pull/79
+- Update to Livewire 3 by @fredericlesueurs in https://github.com/spatie/laravel-livewire-wizard/pull/87
+
+### New Contributors
+
+- @mabdullahsari made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/84
+- @fredericlesueurs made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/87
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.2.0...2.0.0
+
+## 1.2.0 - 2023-04-05
+
+### What's Changed
+
+- Add missing comma in example code by @astersnake in https://github.com/spatie/laravel-livewire-wizard/pull/72
+- add missing colon (:) by @Enaah in https://github.com/spatie/laravel-livewire-wizard/pull/73
+- Add has step checks by @Bird87ZA in https://github.com/spatie/laravel-livewire-wizard/pull/78
+
+### New Contributors
+
+- @astersnake made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/72
+- @Enaah made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/73
+- @Bird87ZA made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/78
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.1.5...1.2.0
+
+## 1.1.5 - 2023-03-01
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-livewire-wizard/pull/68
+- Fix `Creation of dynamic property` warning in PHP 8.2 by @JayBizzle in https://github.com/spatie/laravel-livewire-wizard/pull/71
+
+### New Contributors
+
+- @JayBizzle made their first contribution in https://github.com/spatie/laravel-livewire-wizard/pull/71
+
+**Full Changelog**: https://github.com/spatie/laravel-livewire-wizard/compare/1.1.4...1.1.5
+
 ## 1.1.4 - 2023-01-25
 
 - allow L10

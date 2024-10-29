@@ -3,8 +3,9 @@
 namespace Spatie\LivewireWizard\Components;
 
 use Illuminate\Support\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\Livewire;
+use Livewire\Mechanisms\ComponentRegistry;
 use Spatie\LivewireWizard\Components\Concerns\MountsWizard;
 use Spatie\LivewireWizard\Exceptions\InvalidStepComponent;
 use Spatie\LivewireWizard\Exceptions\NoNextStep;
@@ -18,14 +19,10 @@ abstract class WizardComponent extends Component
     use MountsWizard;
 
     public array $allStepState = [];
-    public ?string $currentStepName = null;
-    public ?string $currentStepClass = null;
 
-    protected $listeners = [
-        'previousStep',
-        'nextStep',
-        'showStep',
-    ];
+    public ?string $currentStepName = null;
+
+    public ?string $currentStepClass = null;
 
     /** @return <int, class-string<StepComponent> */
     abstract public function steps(): array;
@@ -47,7 +44,7 @@ abstract class WizardComponent extends Component
                 if (is_string($key)) {
                     return $key;
                 }
-                $alias = Livewire::getAlias($stepClassName);
+                $alias = app(ComponentRegistry::class)->getName($stepClassName);
 
                 if (is_null($alias)) {
                     throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
@@ -88,6 +85,7 @@ abstract class WizardComponent extends Component
         return $steps;
     }
 
+    #[On('previousStep')]
     public function previousStep(array $currentStepState)
     {
         $previousStep = collect($this->stepNames())
@@ -100,6 +98,7 @@ abstract class WizardComponent extends Component
         $this->showStep($previousStep, $currentStepState);
     }
 
+    #[On('nextStep')]
     public function nextStep(array $currentStepState)
     {
         $nextStep = collect($this->stepNames())
@@ -112,6 +111,7 @@ abstract class WizardComponent extends Component
         $this->showStep($nextStep, $currentStepState);
     }
 
+    #[On('showStep')]
     public function showStep($toStepName, array $currentStepState = [])
     {
         if ($this->currentStepName) {
@@ -136,7 +136,7 @@ abstract class WizardComponent extends Component
         $stepName = $step ?? $this->currentStepName;
 
         $stepName = class_exists($stepName)
-            ? Livewire::getAlias($stepName)
+            ? app(ComponentRegistry::class)->getName($stepName)
             : $stepName;
 
         throw_if(
@@ -151,6 +151,7 @@ abstract class WizardComponent extends Component
                 'allStepClasses' => $this->stepClasses()->toArray(),
                 'allStepsState' => $this->allStepState,
                 'stateClassName' => $this->stateClass(),
+                'wizardClassName' => static::class,
             ],
         );
     }

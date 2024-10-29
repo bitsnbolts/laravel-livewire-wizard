@@ -22,7 +22,7 @@ To let the steps start with other values than the ones hardcoded in your steps, 
 $initialState = [
     'delivery-address-step' => [
         // ...
-        'zip' => '10000'
+        'zip' => '10000',
         'city' => 'Washington',
     ],
 ];
@@ -39,7 +39,7 @@ In this example we'll pass the user id as a prop, and fetch the relevant details
 
 ```blade
 {{-- in your blade view --}}
-<livewire:checkout-wizard show-step="confirm-order" user-id="$userId",  />
+<livewire:checkout-wizard show-step="confirm-order" :user-id="$userId",  />
 ```
 
 ```php

@@ -2,16 +2,15 @@
 
 namespace Spatie\LivewireWizard\Tests\TestSupport\Components;
 
+use Livewire\Attributes\Session;
 use Spatie\LivewireWizard\Components\WizardComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\FirstStepComponent;
 use Spatie\LivewireWizard\Tests\TestSupport\Components\Steps\SecondStepComponent;
 
-class WizardWithInitialState extends WizardComponent
+class WizardWithPersistState extends WizardComponent
 {
-    public function mount(int $order)
-    {
-        $this->order = $order;
-    }
+    #[Session]
+    public array $allStepState = [];
 
     public function steps(): array
     {
@@ -21,11 +20,11 @@ class WizardWithInitialState extends WizardComponent
         ];
     }
 
-    public function initialState(): array
+    public function initialState(): ?array
     {
         return [
             'first-step' => [
-                'order' => $this->order,
+                'order' => 123,
             ],
         ];
     }
