@@ -24,7 +24,7 @@ abstract class WizardComponent extends Component
 
     public ?string $currentStepClass = null;
 
-    /** @return <int, class-string<StepComponent> */
+    /** @return <string, class-string<StepComponent> */
     abstract public function steps(): array;
 
     public function initialState(): ?array
@@ -40,9 +40,11 @@ abstract class WizardComponent extends Component
                     throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $stepClassName);
                 }
             })
-            ->map(function (string $stepClassName) {
+            ->map(function (string $stepClassName, string|int $key) {
+                if (is_string($key)) {
+                    return $key;
+                }
                 $alias = app(ComponentRegistry::class)->getName($stepClassName);
-
                 if (is_null($alias)) {
                     throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
                 }
@@ -66,7 +68,7 @@ abstract class WizardComponent extends Component
                 }
             })
             ->map(function (string $stepClassName) {
-                $alias = Livewire::getAlias($stepClassName);
+                $alias = app(ComponentRegistry::class)->getName($stepClassName);
 
                 if (is_null($alias)) {
                     throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
