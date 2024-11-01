@@ -17,6 +17,7 @@ class StepSynth extends \Livewire\Mechanisms\HandleComponents\Synthesizers\Synth
     {
         return [[
             'stepName' => $target->stepName,
+            'stepClass' => $target->stepClass,
             'info' => $target->info,
             'status' => $target->status->value,
         ], []];
@@ -26,6 +27,7 @@ class StepSynth extends \Livewire\Mechanisms\HandleComponents\Synthesizers\Synth
     {
         return new Step(
             $value['stepName'],
+            $value['stepClass'],
             $value['info'],
             StepStatus::from($value['status']),
         );
