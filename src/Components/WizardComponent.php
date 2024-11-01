@@ -40,17 +40,14 @@ abstract class WizardComponent extends Component
                     throw InvalidStepComponent::doesNotExtendStepComponent(static::class, $stepClassName);
                 }
             })
-            ->map(function (string $stepClassName, string|int $key) {
-                if (is_string($key)) {
-                    return $key;
-                }
+            ->map(function (string $stepClassName) {
                 $alias = app(ComponentRegistry::class)->getName($stepClassName);
 
                 if (is_null($alias)) {
                     throw InvalidStepComponent::notRegisteredWithLivewire(static::class, $stepClassName);
                 }
 
-                return $alias;
+                return $stepClassName;
             });
 
         if ($steps->isEmpty()) {
